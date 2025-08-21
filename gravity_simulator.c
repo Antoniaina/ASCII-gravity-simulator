@@ -1,28 +1,35 @@
-#include <stdio.h>
-#include <unistd.h>
+#include<stdio.h>
+#include<Windows.h>
+
+#define HEIGHT_MAX 20
 
 int main() {
-    double y = 10.0;    
-    double v = 0.0;     
-    double g = 9.81;    
-    double dt = 0.05;   
-    double e = 0.9;     
+    double y = 10.0;
+    double vy = 0.0;
+    double g = 9.81;
+    double dt = 0.05;
+    double el = 0.8;
+    double t = 0.0;
+    
+    while (1){
+        vy -= g * dt;
+        y += vy * dt;
 
-    for (int step = 0; step < 200; step++) {
-        
-        v -= g * dt;
-        y += v * dt;
- 
-        if (y < 0) {
-            y = 0;
-            v = -v * e;
+        if ( y <= 0 ) {
+            y = 0; // TODO: consider the speed at the collision point
+            vy = -vy*el;
         }
 
-        
-        int pos = (int)(y + 0.5);
-        for (int i = 0; i < pos; i++) printf(" ");
-        printf("o\n");
-
-        usleep(50000); 
+        int pos = (int)(HEIGHT_MAX - y + 0.5);
+        system("cls");
+        printf("t=%.2f  |   y=%.2f |    vy=%.2f    \n", t, y, vy);
+        printf("--------------------------------\n");
+        for (int i=0 ; i<HEIGHT_MAX ; i++) {
+            printf(i == pos ? "    o\n" : "\n" );
+        }        
+        printf("--------------------------------\n");
+        t += dt;
+        Sleep(50);
     }
+    
 }
