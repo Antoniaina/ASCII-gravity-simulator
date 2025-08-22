@@ -12,13 +12,24 @@ void initBuffer(char screen[HEIGHT][WIDTH]) {
 }
 
 void drawBuffer( char screen[HEIGHT][WIDTH]) {
-    system("cls");
+    printf("\033[H");    
+    printf("\033[?25l");
+
+    for (int j = 0; j < WIDTH + 2; j++) printf("-");
+    putchar('\n');
+
     for (int i=0; i<HEIGHT; i++) {
+        printf("|");
         for (int j=0; j<WIDTH; j++) {
             putchar(screen[i][j]);
         }
-        putchar('\n');
+        printf("|\n");
     }
+
+    for (int j = 0; j < WIDTH + 2; j++) printf("-");
+    putchar('\n');
+
+    fflush(stdout);
 }
 
 void drawChar(char screen[HEIGHT][WIDTH], int x, int y, char c) {
