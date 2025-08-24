@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include "render.h"
+#include "engine.h"
 
 #define CLEAR_SCREEN "\033[2J"
 #define CURSOR_HOME "\033[H"
@@ -79,15 +80,19 @@ void drawHUD(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH], const char *title, HudEntry
 
 }
 
-void drawSimulationChar(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH], int x, int y, char c, const char *color) {
-    int simX = HUD_WIDTH + x;
-    int simY = y;
+void drawSimulationChar(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH], Engine *engine, char c, const char *color) {
+    for (int i=0 ; i<engine->ballCount; i++) {
+        int simX = HUD_WIDTH + (int)engine->balls[i].x;
+        int simY = (int)engine->balls[i].y;
 
-    if (simX >= HUD_WIDTH && simX < TOTAL_WIDTH && simY >= 0 && simY < TOTAL_HEIGHT) {
-        screen[simY][simX].c = c;
-        strncpy(screen[simY][simX].color, color, COLOR_LEN - 1);
-        screen[simY][simX].color[COLOR_LEN - 1] = '\0';
+        if (simX >= HUD_WIDTH && simX < TOTAL_WIDTH && simY >= 0 && simY < TOTAL_HEIGHT) {
+            screen[simY][simX].c = c;
+            strncpy(screen[simY][simX].color, color, COLOR_LEN - 1);
+            screen[simY][simX].color[COLOR_LEN - 1] = '\0';
+        }
     }
+
+    
 }
 
 void renderFrame(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH]) {
