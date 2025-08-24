@@ -1,11 +1,17 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-#define WIDTH 40
-#define HEIGHT 40
+#define WIDTH 80 //80 24
+#define HEIGHT 24
+#define COLOR_LEN 10
 
-void initBuffer(char screen[HEIGHT][WIDTH]);
-void drawBuffer(char screen[HEIGHT][WIDTH]);
-void drawChar(char screen[HEIGHT][WIDTH], int x, int y, char c);
+typedef struct {
+    char c;
+    char color[COLOR_LEN];
+} Cell;
+
+void initBuffer(Cell screen[HEIGHT][WIDTH]);
+void drawBuffer(Cell screen[HEIGHT][WIDTH]);
+void drawChar(Cell screen[HEIGHT][WIDTH], int x, int y, char c, const char *color);
 
 #endif

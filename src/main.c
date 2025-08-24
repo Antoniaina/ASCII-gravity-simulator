@@ -3,17 +3,19 @@
 #include "render.h"
 
 int main() {
-    char screen[HEIGHT][WIDTH];
+    Cell screen[HEIGHT][WIDTH];
 
     int x=5, y=5 ;
 
     while (1){
        initBuffer(screen);
-       drawChar(screen, x, y, 'O');
+       drawChar(screen, x, y, 'O', "\033[31m");
        drawBuffer(screen);
        x = (x+1) % WIDTH;
-       Sleep(100);
+       Sleep(50);
     }
     
+    printf("\033[?25h");
+
     return 0;
 }
