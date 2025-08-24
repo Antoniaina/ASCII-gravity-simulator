@@ -17,6 +17,11 @@
 #define CYAN_COLOR "\033[36m"
 #define WHITE_COLOR "\033[37m"
 
+#define HIDE_CURSOR "\033[?25l"
+#define SHOW_CURSOR "\033[?25h"
+#define FRAME_COLOR "\033[36m"
+#define RESET_COLOR "\033[0m"
+
 typedef struct {
     char c;
     char color[COLOR_LEN];

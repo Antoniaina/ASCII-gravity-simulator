@@ -29,6 +29,7 @@ int main() {
         renderFrame(screen);
         nanosleep(&ts, NULL);
     }
-    printf("\033[?25h");
+
+    printf(SHOW_CURSOR RESET_COLOR);
     return 0;
 }

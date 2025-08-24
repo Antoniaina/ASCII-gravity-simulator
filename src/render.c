@@ -3,13 +3,12 @@
 #include<string.h>
 #include "render.h"
 
-#define FRAME_COLOR "\033[36m"
-#define RESET_COLOR "\033[0m"
-
 #define CLEAR_SCREEN "\033[2J"
 #define CURSOR_HOME "\033[H"
-#define HIDE_CURSOR "\033[?25l"
-#define SHOW_CURSOR "\033[?25h"
+
+static Cell prevScreen[TOTAL_HEIGHT][TOTAL_WIDTH]; 
+static int prevInitialized = 0;
+
 
 void drawLine(Cell frame[TOTAL_HEIGHT][TOTAL_WIDTH], int start, int end, int currentLine) {
     drawChar(frame, start, currentLine, '+', FRAME_COLOR);
@@ -92,13 +91,18 @@ void drawSimulationChar(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH], int x, int y, ch
 }
 
 void renderFrame(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH]) {
-    printf(CLEAR_SCREEN CURSOR_HOME HIDE_CURSOR);
+    if (!prevInitialized) {
+        printf(CLEAR_SCREEN CURSOR_HOME HIDE_CURSOR);
+        prevInitialized = 1;
+    }
 
-    for (int i=0 ; i<TOTAL_HEIGHT; i++) {
-        for (int j=0 ; j<TOTAL_WIDTH ; j++) {
-            printf("%s%c" RESET_COLOR, screen[i][j].color, screen[i][j].c);
+    for (int y = 0; y < TOTAL_HEIGHT; y++) {
+        for (int x = 0; x < TOTAL_WIDTH; x++) {
+            if (screen[y][x].c != prevScreen[y][x].c || strcmp(screen[y][x].color, prevScreen[y][x].color) != 0) {
+                printf("\033[%d;%dH%s%c", y + 1, x + 1, screen[y][x].color, screen[y][x].c);
+                prevScreen[y][x] = screen[y][x];
+            }
         }
-        putchar('\n');
     }
 
     fflush(stdout);
