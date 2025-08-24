@@ -6,6 +6,6 @@ typedef struct {
     float vx, vy;
 } Ball;
 
-void updateBall(Ball *ball, float dt);
+void updateBall(Ball *ball, float dt, float g, float maxX, float maxY, float restitution);
 
 #endif

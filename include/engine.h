@@ -12,6 +12,6 @@ typedef struct {
 } Engine;
 
 void initEngine(Engine *engine);
-void updateEngine(Engine *engine, float dt);
+void updateEngine(Engine *engine, float dt, float g, float maxX, float maxY, float restitution);
 
 #endif
