@@ -3,9 +3,9 @@
 
 #include "engine.h"
 
-#define HUD_WIDTH 30
+#define HUD_WIDTH 45
 #define HUD_HEIGHT 24
-#define SIM_WIDTH 80
+#define SIM_WIDTH 95
 #define SIM_HEIGHT 24
 #define TOTAL_HEIGHT 24 + 3  //80 40
 #define TOTAL_WIDTH (HUD_WIDTH + SIM_WIDTH + 4) 

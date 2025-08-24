@@ -10,9 +10,9 @@ void initEngine(Engine *engine) {
     engine->time = 0.0f;
 }
 
-void updateEngine(Engine *engine, float dt) {
-    for (int i=0 ; i< engine->ballCount; i++) {
-        updateBall(&engine->balls[i], dt);
+void updateEngine(Engine *engine, float dt, float g, float maxX, float maxY, float restitution) {
+    for (int i = 0; i < engine->ballCount; i++) {
+        updateBall(&engine->balls[i], dt, g, maxX, maxY, restitution);
     }
     engine->time += dt;
 }
