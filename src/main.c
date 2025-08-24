@@ -1,19 +1,34 @@
 #include <stdio.h>
-#include <Windows.h>
+#include <time.h>
 #include "render.h"
 
+struct timespec ts = {0, 80 * 1000000};
+
 int main() {
-    char screen[HEIGHT][WIDTH];
+    Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH];
+    HudEntry params[] = {
+        {"Temps", "12.3", "s"},
+        {"Vitesse", "45.0", "m/s"},
+        {"Hauteur", "120", "m"},
+    };
+    int nbParams = sizeof(params) / sizeof(params[0]);
 
-    int x=5, y=5 ;
+     for (int frame = 0; frame < 100; frame++) {
+        initBuffer(screen);
 
-    while (1){
-       initBuffer(screen);
-       drawChar(screen, x, y, 'O');
-       drawBuffer(screen);
-       x = (x+1) % WIDTH;
-       Sleep(100);
+        char timeStr[16];
+        snprintf(timeStr, sizeof(timeStr), "%.1f", frame * 0.1);
+        snprintf(params[0].value, sizeof(params[0].value), "%.1f", frame * 0.1);
+
+        drawHUD(screen, "Ball Simulation", params, nbParams);
+
+        int ballX = frame % (TOTAL_WIDTH - HUD_WIDTH - 2);
+        int ballY = TOTAL_HEIGHT / 2;
+        drawSimulationChar(screen, ballX, ballY, 'O', RED_COLOR);
+
+        renderFrame(screen);
+        nanosleep(&ts, NULL);
     }
-    
+    printf("\033[?25h");
     return 0;
 }
