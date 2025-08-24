@@ -1,6 +1,8 @@
 #ifndef RENDER_H
 #define RENDER_H
 
+#include "engine.h"
+
 #define HUD_WIDTH 30
 #define HUD_HEIGHT 24
 #define SIM_WIDTH 80
@@ -38,7 +40,7 @@ void initBuffer(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH]);
 void drawBuffer(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH]);
 void drawChar(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH], int x, int y, char c, const char *color);
 void drawHUD(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH], const char *title, HudEntry *entries, int paramsCount);
-void drawSimulationChar(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH], int x, int y, char c, const char *color);
+void drawSimulationChar(Cell screen[TOTAL_HEIGHT][TOTAL_WIDTH], Engine *engine, char c, const char *color);
 void renderFrame(Cell scree[TOTAL_HEIGHT][TOTAL_WIDTH]);
 
 #endif
